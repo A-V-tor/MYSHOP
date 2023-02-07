@@ -1,0 +1,30 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+<h1 class="h1-jeans ">{{ product }}</h1>
+<br>
+{% if object_list %}
+<ul>
+  {% for i in object_list %}
+    <li class="list-product">
+      <div class="card" style="width: 18rem;">
+      <img src="{{i.main_image.url}}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ i.name }}</h5>
+        <p class="card-text">{{ i.price }} у.е.</p>
+        <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+      </div>
+      </div>
+    </li>
+    {% endfor %}
+  {% elif not object_list %}
+  <p class="list-product">Данная категория товаров пуста</p>
+  {% endif %}
+</ul>
+
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,11 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+
+<p class="list-product-2">КАТЕГОРИИ МУЖСКОЙ ОДЕЖДЫ</p></br>
+<a href="{% url 'jeans-male' %}" class="list-product-2">Джинсы</a></br></br>
+<a href="{% url 'shirt-male' %}" class="list-product-2">Рубашки</a></br></br>
+<a href="{% url 'tshirt-male' %}" class="list-product-2">Футболки</a></br></br>
+<a href="{% url 'cap-male' %}" class="list-product-2">Шапки</a></br></br>
+<a href="{% url 'scarf-male' %}" class="list-product-2">Шарфы</a></br></br>
+{% endblock %}

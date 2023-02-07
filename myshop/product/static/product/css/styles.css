@@ -1,0 +1,38 @@
+/* приложение product */
+
+.h1-jeans {color: #a52a2a;text-align: center;}
+.list-product {
+    list-style-type: none; /* Убираем маркеры */
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 20px;
+   }
+
+.list-product-2 {
+    font-family: Garamond;
+    font-size: 25px;
+    display: inline-block;
+    margin-left: 30%;
+    margin-top: 5%;
+    }
+
+
+.image-detail {
+    position: absolute;
+    color: #a52a2a;
+    margin-left: 5%;
+    top: 20%;
+    width: 30%;
+    height: 50%;
+}
+
+.detail-description {
+    width: 45%;
+    height: 30%;
+    position: absolute;
+    top: 20%; left: 50%;
+}
+
+.detail-h5 {text-align: center;}
+
+.price {margin-top: 30%;margin-left: 40%}
