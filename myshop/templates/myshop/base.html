@@ -10,6 +10,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" href="{% static 'product/css/styles.css'%}" rel="stylesheet"/>
+  <link type="text/css" href="{% static 'myshop/css/styles.css'%}" rel="stylesheet"/>
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
            crossorigin="anonymous"></script>
@@ -20,7 +21,7 @@
 </head>
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#">Navbar</a>
+    <a class="navbar-brand text-white" href="{% url 'main' %}">Главная</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
             aria-expanded="false" aria-label="Toggle navigation">
