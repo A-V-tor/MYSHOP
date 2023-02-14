@@ -5,4 +5,4 @@ class MainPageView(TemplateView):
     """Главная страница"""
 
     extra_context = {'title': 'Главная страница'}
-    template_name = "myshop/index.html"
+    template_name = 'myshop/index.html'
