@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     # мои приложения
     "product",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -205,4 +206,8 @@ MEDIA_URL = "media/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# переопределеная модель юзера
+
+AUTH_USER_MODEL = 'users.User'
 

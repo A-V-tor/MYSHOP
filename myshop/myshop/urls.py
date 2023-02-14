@@ -23,6 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", MainPageView.as_view(), name="main"),
     path("product/", include("product.urls")),
+    path("", include("users.urls")),
 ]
 
 # маршрут загрузки графики
