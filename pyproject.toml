@@ -12,6 +12,9 @@ pillow = "^9.4.0"
 django-bootstrap4 = "^22.3"
 
 
+[tool.poetry.group.dev.dependencies]
+blue = "^0.9.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

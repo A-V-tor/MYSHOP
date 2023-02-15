@@ -6,22 +6,24 @@ class MaleView(TemplateView):
     """Отображение категорий мужской одежды"""
 
     extra_context = {'title': 'мужская одежда'}
-    template_name = "product/male.html"
+    template_name = 'product/male.html'
 
 
 class FemaleView(TemplateView):
     """Отображение категорий женской одежды"""
 
     extra_context = {'title': 'женская одежда'}
-    template_name = "product/female.html"
+    template_name = 'product/female.html'
 
 
 class JeansListFemaleView(ListView):
     """Отображение женских джинс"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='woman', category__name='jeans')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='woman', category__name='jeans'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -34,8 +36,10 @@ class JeansListMaleView(ListView):
     """Отображение мужских джинс"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='man', category__name='jeans')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='man', category__name='jeans'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,8 +52,10 @@ class ShirtListMaleView(ListView):
     """Отображение списка мужских рубашек"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='man', category__name='shirt')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='man', category__name='shirt'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -62,8 +68,10 @@ class ShirtListFemaleView(ListView):
     """Отображение списка женских рубашек"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='woman', category__name='shirt')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='woman', category__name='shirt'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,8 +84,10 @@ class TshirtListMaleView(ListView):
     """Отображение списка мужских футболок"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='man', category__name='tshirt')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='man', category__name='tshirt'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,8 +100,10 @@ class TshirtListFemaleView(ListView):
     """Отображение списка женских футболок"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='woman', category__name='tshirt')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='woman', category__name='tshirt'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -104,8 +116,10 @@ class CapListMaleView(ListView):
     """Отображение списка мужских шапок"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='man', category__name='cap')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='man', category__name='cap'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,8 +132,10 @@ class CapListFemaleView(ListView):
     """Отображение списка женских шапок"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='woman', category__name='cap')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='woman', category__name='cap'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -132,8 +148,10 @@ class ScarfListMaleView(ListView):
     """Отображение списка мужских шарфов"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='man', category__name='scarf')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='man', category__name='scarf'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -146,8 +164,10 @@ class ScarfListFemaleView(ListView):
     """Отображение списка женских шарфов"""
 
     model = Product
-    template_name = "product/product.html"
-    queryset = Product.objects.filter(is_published=True, sex__value='woman', category__name='scarf')
+    template_name = 'product/product.html'
+    queryset = Product.objects.filter(
+        is_published=True, sex__value='woman', category__name='scarf'
+    )
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -160,5 +180,5 @@ class ProductDetailView(DetailView):
     """Детальное отображение товара"""
 
     model = Product
-    template_name = "product/detail-product.html"
+    template_name = 'product/detail-product.html'
     extra_context = {'title': 'товар'}

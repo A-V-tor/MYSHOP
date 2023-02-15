@@ -35,9 +35,15 @@
         <li class="nav-item">
           <a class="nav-link text-white" href="{% url 'male' %}">Мужская одежда</a>
         </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Pricing</a>
+          <a class="nav-link text-white" href="{% url 'logout' %}" >Выйти</a>
         </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'login' %}">Войти</a>
+        </li>
+        {% endif %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown link
