@@ -42,13 +42,8 @@ INSTALLED_APPS = [
     # дополнительно установленые приложения
     'bootstrap4',
     # мои приложения
-<<<<<<< HEAD
-    "product",
-    "users",
-=======
     'product',
     'users',
->>>>>>> 6f3665d (add: приложение users)
 ]
 
 MIDDLEWARE = [
@@ -203,7 +198,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # переопределеная модель юзера
 
 AUTH_USER_MODEL = 'users.User'
-<<<<<<< HEAD
-
-=======
->>>>>>> 6f3665d (add: приложение users)

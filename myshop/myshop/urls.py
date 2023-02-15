@@ -20,17 +20,10 @@ from .views import *
 from myshop import settings
 
 urlpatterns = [
-<<<<<<< HEAD
-    path("admin/", admin.site.urls),
-    path("", MainPageView.as_view(), name="main"),
-    path("product/", include("product.urls")),
-    path("", include("users.urls")),
-=======
     path('admin/', admin.site.urls),
     path('', MainPageView.as_view(), name='main'),
     path('product/', include('product.urls')),
     path('', include('users.urls')),
->>>>>>> 6f3665d (add: приложение users)
 ]
 
 # маршрут загрузки графики

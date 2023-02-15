@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from .forms import RegisterUserForm
-
-
-class RegisterUser(CreateView):
-    form_class = RegisterUserForm
-    template_name = 'users/register.html'
-    extra_context = {'title': 'Регистрация'}
-    success_url = reverse_lazy('main')
-=======
 from urllib import request
 
 from django.contrib.auth import logout, login
@@ -50,4 +37,3 @@ def logout_user(request):
 
     logout(request)
     return redirect('login')
->>>>>>> 6f3665d (add: приложение users)
