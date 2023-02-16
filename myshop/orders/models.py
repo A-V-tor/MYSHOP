@@ -5,7 +5,9 @@ from django.db import models
 class Cart(models.Model):
     """Модель корзины товаров"""
 
-    datetime = models.DateField(default=datetime.datetime.now, verbose_name='дата')
+    datetime = models.DateField(
+        default=datetime.datetime.now, verbose_name='дата'
+    )
     user_id = models.ForeignKey(
         'users.User',
         related_name='cart',

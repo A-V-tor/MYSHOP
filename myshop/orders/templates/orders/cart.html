@@ -1,17 +1,21 @@
 {% extends 'myshop/base.html' %}
 {% load static %}
 {% block content %}
-
-<li class="list-cart">
-{% for product in  object_list %}
-    <ul class="list-cart">
-        <h2>{{ product.product_id.name }}</h2>
-        <h5>{{ product.product_id.price }} u.e.</h5>
-        <img src="{{ product.product_id.main_image.url }}" class="" width="150" height="150" alt="..."></br></br>
-        {{ product.size }}
-    </ul>
-
-
-{% endfor %}
-</li>
+<div class="cart-show">
+    <li class="list-cart">
+    {% for product in  object_list %}
+        <ul class="list-cart">
+            <form method="post">
+                {% csrf_token %}
+                <h2>{{ product.product_id.name }}</h2>
+                <h5>{{ product.product_id.price }} у.е.</h5>
+                 размер: {{ product.size }}</br>
+                <img src="{{ product.product_id.main_image.url }}" class="" width="150" height="150" alt="..."></br></br>
+                <button type="submit" class="btn btn-danger" name="remove_product" value='{{ product.id }}'>Удалить</button>
+            </form>
+        </ul>
+    {% endfor %}
+        <h2>{{sum|stringformat:".2f"}} у.е.</h2>
+    </li>
+</div>
 {% endblock %}

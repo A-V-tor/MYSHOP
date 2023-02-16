@@ -197,13 +197,21 @@ class ProductDetailView(DetailView):
             if int(value_size) > 0:
                 product = self.get_object()
                 user = request.user
-                Cart.objects.create(user_id=user, product_id=product, size=size)
-                messages.add_message(request, messages.SUCCESS, f'Товар {product}  {size} добавлен в корзину!')
+                Cart.objects.create(
+                    user_id=user, product_id=product, size=size
+                )
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f'Товар {product}  {size} добавлен в корзину!',
+                )
 
             # в случае если остатка нет, вывод соотвествующего сообщения
             else:
-                messages.add_message(request, messages.ERROR, 'В данный момент товар отсутствует!')
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    'В данный момент товар отсутствует!',
+                )
 
         return redirect(self.get_object())
-
-
