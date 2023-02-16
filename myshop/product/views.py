@@ -1,26 +1,30 @@
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.auth import get_user_model
+from orders.models import Cart
 from .models import Product, Sex, Category
 
 
 class MaleView(TemplateView):
     """Отображение категорий мужской одежды"""
 
-    extra_context = {'title': 'мужская одежда'}
     template_name = 'product/male.html'
+    extra_context = {'title': 'мужская одежда'}
 
 
 class FemaleView(TemplateView):
     """Отображение категорий женской одежды"""
 
-    extra_context = {'title': 'женская одежда'}
     template_name = 'product/female.html'
+    extra_context = {'title': 'женская одежда'}
 
 
 class JeansListFemaleView(ListView):
     """Отображение женских джинс"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='woman', category__name='jeans'
     )
@@ -35,8 +39,8 @@ class JeansListFemaleView(ListView):
 class JeansListMaleView(ListView):
     """Отображение мужских джинс"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='man', category__name='jeans'
     )
@@ -51,8 +55,8 @@ class JeansListMaleView(ListView):
 class ShirtListMaleView(ListView):
     """Отображение списка мужских рубашек"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='man', category__name='shirt'
     )
@@ -67,8 +71,8 @@ class ShirtListMaleView(ListView):
 class ShirtListFemaleView(ListView):
     """Отображение списка женских рубашек"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='woman', category__name='shirt'
     )
@@ -83,8 +87,8 @@ class ShirtListFemaleView(ListView):
 class TshirtListMaleView(ListView):
     """Отображение списка мужских футболок"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='man', category__name='tshirt'
     )
@@ -99,8 +103,8 @@ class TshirtListMaleView(ListView):
 class TshirtListFemaleView(ListView):
     """Отображение списка женских футболок"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='woman', category__name='tshirt'
     )
@@ -115,8 +119,8 @@ class TshirtListFemaleView(ListView):
 class CapListMaleView(ListView):
     """Отображение списка мужских шапок"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='man', category__name='cap'
     )
@@ -131,8 +135,8 @@ class CapListMaleView(ListView):
 class CapListFemaleView(ListView):
     """Отображение списка женских шапок"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='woman', category__name='cap'
     )
@@ -147,8 +151,8 @@ class CapListFemaleView(ListView):
 class ScarfListMaleView(ListView):
     """Отображение списка мужских шарфов"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='man', category__name='scarf'
     )
@@ -163,8 +167,8 @@ class ScarfListMaleView(ListView):
 class ScarfListFemaleView(ListView):
     """Отображение списка женских шарфов"""
 
-    model = Product
     template_name = 'product/product.html'
+    model = Product
     queryset = Product.objects.filter(
         is_published=True, sex__value='woman', category__name='scarf'
     )
@@ -179,6 +183,27 @@ class ScarfListFemaleView(ListView):
 class ProductDetailView(DetailView):
     """Детальное отображение товара"""
 
-    model = Product
     template_name = 'product/detail-product.html'
+    model = Product
     extra_context = {'title': 'товар'}
+
+    def post(self, request, *args, **kwargs):
+
+        if 'size' in request.POST:
+            # размер и остаток
+            (size, value_size) = request.POST['size'].split(',')
+
+            # если есть остаток, товар добавляется в корзину
+            if int(value_size) > 0:
+                product = self.get_object()
+                user = request.user
+                Cart.objects.create(user_id=user, product_id=product, size=size)
+                messages.add_message(request, messages.SUCCESS, f'Товар {product}  {size} добавлен в корзину!')
+
+            # в случае если остатка нет, вывод соотвествующего сообщения
+            else:
+                messages.add_message(request, messages.ERROR, 'В данный момент товар отсутствует!')
+
+        return redirect(self.get_object())
+
+

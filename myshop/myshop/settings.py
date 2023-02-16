@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # мои приложения
     'product',
     'users',
+    'orders',
 ]
 
 MIDDLEWARE = [

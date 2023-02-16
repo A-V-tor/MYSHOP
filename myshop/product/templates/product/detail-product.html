@@ -8,6 +8,28 @@
     <br>
     <i>{{ object.description|linebreaks }} <br>
       страна: {{ object.country }}
+      <form method="post" action="#">
+      {% csrf_token %}
+        <h4>Размер:</h4>
+      <div>
+        <input type="radio" id="contactChoice1"
+     name="size" value="S,{{ object.S }}">
+    <label for="contactChoice1">S: {{ object.S }} ед.</label></br>
+        <input type="radio" id="contactChoice1"
+     name="size" value="M,{{ object.M }}">
+    <label for="contactChoice1">M: {{ object.M }} ед.</label></br>
+        <input type="radio" id="contactChoice1"
+     name="size" value="L,{{ object.L }}">
+    <label for="contactChoice1">L: {{ object.L }} ед.</label></br>
+        <input type="radio" id="contactChoice1"
+     name="size" value="XL,{{ object.XL }}">
+    <label for="contactChoice1">XL: {{ object.XL }} ед.</label></br>
+        <input type="radio" id="contactChoice1"
+     name="size" value="XXL,{{ object.XXL }}">
+    <label for="contactChoice1">XXL: {{ object.XXL }} ед.</label>
+      </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
       <h4 class="price">{{ object.price }} у.е.</h4>
     </i>
   </div>

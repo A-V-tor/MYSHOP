@@ -1,0 +1,17 @@
+{% extends 'myshop/base.html' %}
+{% load static %}
+{% block content %}
+
+<li class="list-cart">
+{% for product in  object_list %}
+    <ul class="list-cart">
+        <h2>{{ product.product_id.name }}</h2>
+        <h5>{{ product.product_id.price }} u.e.</h5>
+        <img src="{{ product.product_id.main_image.url }}" class="" width="150" height="150" alt="..."></br></br>
+        {{ product.size }}
+    </ul>
+
+
+{% endfor %}
+</li>
+{% endblock %}

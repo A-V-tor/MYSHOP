@@ -24,6 +24,7 @@ urlpatterns = [
     path('', MainPageView.as_view(), name='main'),
     path('product/', include('product.urls')),
     path('', include('users.urls')),
+    path('', include('orders.urls')),
 ]
 
 # маршрут загрузки графики
