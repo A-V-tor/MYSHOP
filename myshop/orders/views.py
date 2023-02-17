@@ -23,8 +23,8 @@ class CartUserView(ListView):
         # сумма текущей корзины
         context['sum'] = (
             Cart.objects.filter(user_id=user)
-            .aggregate(Sum('product_id__price'))
-            .get('product_id__price__sum')
+            .aggregate(sum=Sum('product_id__price'))
+            .get('sum')
         )
         return context
 
@@ -32,10 +32,11 @@ class CartUserView(ListView):
 
         product_id = request.POST.get('remove_product', None)
         if product_id is not None:
-            print(int(product_id))
             entries = Cart.objects.get(id=int(product_id))
             entries.delete()
         else:
-            raise ValueError('Некорректное значение!')
+            list_products = self.get_queryset().all()
+            list_products.delete()
+            print(self.get_queryset())
 
         return redirect('cart')

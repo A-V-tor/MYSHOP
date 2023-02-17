@@ -10,3 +10,11 @@
     border: 10px solid #fff; /* Белая рамка */
     border-radius: 20px; /* Радиус скругления */
 }
+
+.make-order {
+    border: 10px solid #fff;
+    border-radius: 20px;
+    width: 400px;
+    margin-left: 200%;
+
+}
