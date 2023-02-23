@@ -18,3 +18,15 @@
     margin-left: 200%;
 
 }
+
+.order {
+    width: 60%;
+    background: #d2eff7;
+    border: 10px solid #fff;
+}
+
+
+.order-status {
+    background: #DAF7A6;
+    width: 40%;
+}

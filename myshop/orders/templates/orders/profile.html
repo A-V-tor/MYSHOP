@@ -1,0 +1,27 @@
+{% extends 'myshop/base.html' %}
+{% load static %}
+{% block content %}
+
+<h2>Логин: {{ user }}</h2>
+<h3>Баллы: {{ user.discount_points }}</h3>
+<h4>Дата рождения:{{ user.birthday }}</h4>
+<hr>
+{% for order in  object_list %}
+<div class="order">
+    <h6 class="order">создан: {{ order.date_created }}</h6>
+    номер заказа: {{ order }}
+    <h3>детали</h3>
+        {% for note in order.products_note %}
+        товар:
+            {% for detail in note %}
+                {{ detail }}
+            {% endfor %}</br>
+    {% endfor %}</br>
+    цена: {{ order.price }}
+    <p class="order-status">статус: {{ order.status }}</p>
+    <h6 class="order">обновлен: {{ order.date_updated }}</h6>
+</div>
+<hr>
+</br>
+{% endfor %}
+{% endblock %}
