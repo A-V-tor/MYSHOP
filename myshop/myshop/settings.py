@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # дополнительно установленые приложения
     'bootstrap4',
+    'django_celery_beat',
+    'celery',
     # мои приложения
     'product',
     'users',
@@ -145,7 +147,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
 }
 
 
@@ -197,5 +199,16 @@ MEDIA_URL = 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # переопределеная модель юзера
-
 AUTH_USER_MODEL = 'users.User'
+
+# планировщик задач для celery
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# настройка брокера
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+
+# настройка redis
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379

@@ -4,9 +4,9 @@ from django.views.generic import ListView
 
 from django.shortcuts import redirect
 
-from orders.models import Cart, Order
+from orders.models import Cart, Order, StateCart
 from product.models import Product
-from .other import check_available_stock, get_url_pay
+from .other import check_available_stock, get_description_pay, make_task_for_celery
 
 
 class CartUserView(ListView):
@@ -36,12 +36,14 @@ class CartUserView(ListView):
         """Oтработка кнопок  удалить товар / оформить заказ"""
 
         product_id = request.POST.get('remove_product', None)
+        make_pay = request.POST.get('order', None)
         # удаление
         if product_id:
             entries = Cart.objects.get(id=int(product_id))
             entries.delete()
+
         # формирование заказа
-        else:
+        if make_pay:
             status = 'ожидание'
             order_description = [
                 (
@@ -55,12 +57,12 @@ class CartUserView(ListView):
             user = self.request.user
 
             # проверка остатка товара и его списание в случае наличия
-            check = check_available_stock(Product, order_description)
-            if check:
+            bad_check = check_available_stock(Product, order_description)
+            if bad_check:
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    check,
+                    bad_check,
                 )
                 return redirect('cart')
 
@@ -72,12 +74,26 @@ class CartUserView(ListView):
                 user=user,
             )
 
+            # сохранение информации для восстановления остатков при отмене заказа
+            state = StateCart.objects.create(
+                user=user,
+                description=order_description,
+                order=order,
+            )
+
+            payment = get_description_pay(order)
+            url = payment['confirmation']['confirmation_url']
+            payment_id = payment['id']
+
+            # создание задачи для проверки оплаты заказа
+            make_task_for_celery(order, payment_id, state)
+
             # очистака корзины
             list_products = self.get_queryset().all()
             list_products.delete()
 
             # получение ссылки на оплату
-            return redirect(get_url_pay(order))
+            return redirect(url)
 
         return redirect('cart')
 

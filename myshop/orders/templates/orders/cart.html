@@ -21,7 +21,7 @@
             <form method="post">
                 {% csrf_token %}
                 <h2>Итого: {{sum|stringformat:".2f"}} у.е.</h2>
-                <button type="submit" class="btn btn-secondary" name="order" value="yes">Оформить заказ</button>
+                <button type="submit" class="btn btn-secondary" name="order" value="make_pay">Оформить заказ</button>
             </form>
             {% else %}
             <h3>Корзина пуста</h3>

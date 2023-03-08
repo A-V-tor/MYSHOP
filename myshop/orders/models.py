@@ -61,3 +61,27 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class StateCart(models.Model):
+    """ Сохранение описания корзины для отмены заказа """
+
+    user = models.ForeignKey(
+        'users.User',
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name='пользователь',
+    )
+    description = models.JSONField(verbose_name='детали корзины')
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name='заказ',
+    )
+    date = models.DateTimeField(
+        default=timezone.now, verbose_name='дата создания'
+    )
+
+    def __str__(self):
+        return f'{self.id} {self.description} {self.user}'
