@@ -86,7 +86,7 @@ def get_description_pay(order):
 
 
 def make_task_for_celery(order, payment_id, state):
-    """ Создание задачи для очереди задач
+    """Создание задачи для очереди задач
 
     отслеживания статуса платежа и времени заказа
 
@@ -107,7 +107,7 @@ def make_task_for_celery(order, payment_id, state):
 
 
 def restoring_stock(data, model):
-    """ Возвращение товарного остатка при отмене заказа """
+    """Возвращение товарного остатка при отмене заказа"""
 
     for i in data.description:
         product = i[0]

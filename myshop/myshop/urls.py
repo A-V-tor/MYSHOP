@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.auth import logout
 from django.urls import path, include
 from .views import *
 from myshop import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +27,14 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('', include('users.urls')),
     path('', include('orders.urls')),
+    # для гугл аутенофикации
+    path('', include('social_django.urls', namespace='social')),
+    path(
+        'logout/',
+        logout,
+        {'next_page': settings.LOGOUT_REDIRECT_URL},
+        name='logout',
+    ),
 ]
 
 # маршрут загрузки графики

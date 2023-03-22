@@ -6,7 +6,11 @@ from django.shortcuts import redirect
 
 from orders.models import Cart, Order, StateCart
 from product.models import Product
-from .other import check_available_stock, get_description_pay, make_task_for_celery
+from .other import (
+    check_available_stock,
+    get_description_pay,
+    make_task_for_celery,
+)
 
 
 class CartUserView(ListView):

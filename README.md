@@ -8,8 +8,3 @@ brew services start redis
 celery -A myshop worker --loglevel=info 
 <br>
 celery -A myshop beat -l info
-
-
-
-
-

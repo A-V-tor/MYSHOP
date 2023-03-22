@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os.path
 from pathlib import Path
 
+import dotenv
+from dotenv import load_dotenv, find_dotenv
+
+
+load_dotenv(find_dotenv())
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'django_celery_beat',
     'celery',
+    'social_django',
     # мои приложения
     'product',
     'users',
@@ -212,3 +219,28 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 # настройка redis
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
+
+
+# бэкенд для OAuth2
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('oauth2_key')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('oauth2_secret')
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = '/profile/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
+
+# SOCIAL_AUTH_POSTGRES_JSONFIELD = True

@@ -21,7 +21,11 @@
                 </p>
                 <div class="">{{ form.non_field_errors }}</div>
                 {% endfor %}
-                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                <button type="submit" class="btn btn-primary btn-block">Войти</button></br>
+                <a class="btn btn-light btn-block" href="{% url 'social:begin' 'google-oauth2' %}">
+                    Войти через GOOGLE
+                </a>
+
                 <div class="card-footer text-center">
                         <div class="small"><a href="{% url 'register' %}">Нужен аккаунт?
                             Зарегистрируйся!</a></div>

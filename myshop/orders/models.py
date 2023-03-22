@@ -64,7 +64,7 @@ class Order(models.Model):
 
 
 class StateCart(models.Model):
-    """ Сохранение описания корзины для отмены заказа """
+    """Сохранение описания корзины для отмены заказа"""
 
     user = models.ForeignKey(
         'users.User',
