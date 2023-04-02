@@ -27,7 +27,7 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('', include('users.urls')),
     path('', include('orders.urls')),
-    # для гугл аутенофикации
+    # для гугл аутентификации
     path('', include('social_django.urls', namespace='social')),
     path(
         'logout/',

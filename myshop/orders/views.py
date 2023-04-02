@@ -1,7 +1,13 @@
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+
 from django.db.models import *
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
 from django.views.generic import ListView
 
+from users.token import token_generated
+from .tasks import send_message_by_user_email
 from django.shortcuts import redirect
 
 from orders.models import Cart, Order, StateCart
@@ -113,3 +119,45 @@ class ProfileUserView(ListView):
         return Order.objects.filter(user_id=self.request.user).order_by(
             '-date_created', 'status'
         )
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user.pk
+        to_email = self.request.user.email
+
+        if to_email:
+            messages.add_message(
+                        request,
+                        messages.SUCCESS,
+                        'Ссылка для активации отправлена на ваш адрес электронной почты',
+                    )
+            send_message_by_user_email.delay(user)
+        else:
+            messages.add_message(request, messages.ERROR, 'Не указан email')
+        return redirect('profile')
+
+
+def confirm_email(request, uidb64, token_for_check):
+    User = get_user_model()
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and not token_generated.check_token(
+        user, token_for_check
+    ):
+        user.email_verified = True
+        user.save()
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            'Ваш email подтвержден!',
+        )
+
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'Что-то пошло не так свяжитесь с администрацией сайта!',
+        )
+    return redirect('profile')

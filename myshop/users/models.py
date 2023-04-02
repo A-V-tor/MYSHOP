@@ -13,3 +13,6 @@ class User(AbstractUser):
     birthday = models.DateField(
         default=datetime.datetime.now, verbose_name='день рождения'
     )
+    email_verified = models.BooleanField(
+        default=False, verbose_name='Email подтвержден ?'
+    )

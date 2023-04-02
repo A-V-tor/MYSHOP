@@ -1,0 +1,5 @@
+{% autoescape off %} 
+Здравствуйте! {{ user.username }},
+Пожалуйста, нажмите на ссылку, чтобы подтвердить регистрацию,
+http://127.0.0.1:8000{% url 'confirm_email' uidb64=uid token_for_check=token %}
+{% endautoescape %} 

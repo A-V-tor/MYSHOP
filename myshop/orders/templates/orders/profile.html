@@ -1,7 +1,12 @@
 {% extends 'myshop/base.html' %}
 {% load static %}
 {% block content %}
-
+{% if not user.email_verified %}
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" name="verified_email" value='send_token'>Подтвердить email</button>
+    </form>
+{% endif %}
 <h2>Логин: {{ user }}</h2>
 <h3>Баллы: {{ user.discount_points }}</h3>
 <h4>Дата рождения:{{ user.birthday }}</h4>

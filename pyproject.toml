@@ -20,6 +20,7 @@ social-auth-app-django = "^5.0.0"
 
 [tool.poetry.group.dev.dependencies]
 blue = "^0.9.1"
+flower = "^1.2.0"
 
 [build-system]
 requires = ["poetry-core"]

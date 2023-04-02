@@ -244,3 +244,13 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 
 # SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+
+# подтверждение электронной почты
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = os.getenv('my_email')
+EMAIL_HOST_PASSWORD = os.getenv('email_psw')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_PORT = 587

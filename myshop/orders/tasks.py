@@ -2,8 +2,16 @@ import json
 
 from celery import shared_task
 import os
+
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django_celery_beat.models import PeriodicTask
+from django.core.mail import EmailMessage
+
+from users.token import token_generated
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.template.loader import render_to_string
 from datetime import datetime, timedelta
 from yookassa import Payment, Configuration
 from dotenv import load_dotenv, find_dotenv
@@ -57,3 +65,24 @@ def get_status_order(payment_id, order, state):
         task = PeriodicTask.objects.get(name=f'заказ №{order}')
         task.enabled = False
         task.save()
+
+
+@shared_task
+def send_message_by_user_email(pk):
+    """Отправка сообщения с сылкой для подтверждения почты."""
+    User = get_user_model()
+    user = User.objects.get(pk=pk)
+    mail_subject = 'Подтверждение электронной почты'
+    message = render_to_string(
+        'orders/verifed_email.html',
+        {
+            'user': user,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': token_generated.make_token(user),
+        },
+    )
+
+    to_email = user.email
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    email.send()
+
