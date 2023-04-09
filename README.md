@@ -11,6 +11,6 @@ celery -A myshop beat -l info
 <br>
 запуск Flower
 celery -A myshop flower
-
+<br>
 url
 http://localhost:5555/dashboard

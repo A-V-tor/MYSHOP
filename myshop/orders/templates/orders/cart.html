@@ -1,6 +1,7 @@
 {% extends 'myshop/base.html' %}
 {% load static %}
 {% block content %}
+{% if user.username %}
 <div class="cart-show">
     <li class="list-cart">
     {% for product in  object_list %}
@@ -29,4 +30,29 @@
         {% endif %}
     </li>
 </div>
+{% else %}
+<h1>Вы незарегистрированы, функциональность ограничена</h1>
+<div class="cart-show">
+    <li class="list-cart">
+        {% if cart %}
+            {% for i in cart %}
+                <ul class="list-cart">
+                        <h2>{{ i.0 }}</h2>
+                        <h5>{{ i.2 }} у.е.</h5>
+                        <h5>{{ i.3 }}</h5>
+                        <img src="/media/{{ i.1 }}" class="" width="100" height="100" alt="..."></br></br>
+                </ul>
+
+            {% endfor %}
+        <div class="make-order">
+            <h2>Итого: {{sum|stringformat:".2f"}} у.е.</h2>
+            <a href="{% url 'register' %}">Зарегистритроваться</a>
+        </div>
+    </li>
+</div>
+{% endif %}
+
+
+{% endif %}
+
 {% endblock %}

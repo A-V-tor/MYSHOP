@@ -1,10 +1,11 @@
 import json
 import os
-
+from decimal import Decimal
 from django.utils import timezone
 from django.db import transaction
 from yookassa import Configuration, Payment
 from django_celery_beat.models import PeriodicTask, IntervalSchedule
+from django.core.cache import cache
 from dotenv import load_dotenv, find_dotenv
 
 
@@ -117,3 +118,24 @@ def restoring_stock(data, model):
         setattr(product, size, (int(check_size) + 1))
         product.save()
     data.delete()
+
+
+def get_all_sum_cart_anonymous_user(cart):
+    """Сумма корзины не авторизованного юзера."""
+    all_sum = 0
+    for i in cart:
+        all_sum += Decimal(i[2])
+
+    return all_sum
+
+
+def get_cart_for_anonymous(user):
+    """Получение корзины не авторизованного юзера."""
+    data_cart = cache.get(user)
+    cart = []
+    if data_cart:
+        for i in data_cart:
+            product = i.split(',')
+            cart.extend([product])
+
+    return cart

@@ -9,13 +9,15 @@ from django.views.generic import ListView
 from users.token import token_generated
 from .tasks import send_message_by_user_email
 from django.shortcuts import redirect
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from orders.models import Cart, Order, StateCart
 from product.models import Product
 from .other import (
     check_available_stock,
     get_description_pay,
     make_task_for_celery,
+    get_cart_for_anonymous,
+    get_all_sum_cart_anonymous_user,
 )
 
 
@@ -28,18 +30,29 @@ class CartUserView(ListView):
     object_list = None
 
     def get_queryset(self):
-        return Cart.objects.filter(user_id=self.request.user)
+        try:
+            return Cart.objects.filter(user_id=self.request.user)
+        except TypeError:
+            pass
 
     def get_context_data(self, **kwargs):
         context = super(CartUserView, self).get_context_data(**kwargs)
         user = self.request.user
 
         # сумма текущей корзины
-        context['sum'] = (
-            Cart.objects.filter(user_id=user)
-            .aggregate(sum=Sum('product_id__price'))
-            .get('sum')
-        )
+        try:
+            context['sum'] = (
+                Cart.objects.filter(user_id=user)
+                .aggregate(sum=Sum('product_id__price'))
+                .get('sum')
+            )
+        except TypeError:
+            user = self.request.META.get('HTTP_USER_AGENT', '')
+            cart = get_cart_for_anonymous(user)
+            sum_anonymous = get_all_sum_cart_anonymous_user(cart)
+            context['cart'] = cart
+            context['sum'] = sum_anonymous
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -108,9 +121,10 @@ class CartUserView(ListView):
         return redirect('cart')
 
 
-class ProfileUserView(ListView):
+class ProfileUserView(LoginRequiredMixin, ListView):
     """Отображение личного профиля с заказами"""
 
+    login_url = '/login/'
     template_name = 'orders/profile.html'
     model = Order
     extra_context = {'title': 'Профиль'}
@@ -126,10 +140,10 @@ class ProfileUserView(ListView):
 
         if to_email:
             messages.add_message(
-                        request,
-                        messages.SUCCESS,
-                        'Ссылка для активации отправлена на ваш адрес электронной почты',
-                    )
+                request,
+                messages.SUCCESS,
+                'Ссылка для активации отправлена на ваш адрес электронной почты',
+            )
             send_message_by_user_email.delay(user)
         else:
             messages.add_message(request, messages.ERROR, 'Не указан email')

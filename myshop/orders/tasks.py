@@ -85,4 +85,3 @@ def send_message_by_user_email(pk):
     to_email = user.email
     email = EmailMessage(mail_subject, message, to=[to_email])
     email.send()
-

@@ -212,7 +212,7 @@ AUTH_USER_MODEL = 'users.User'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # настройка брокера
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 
@@ -254,3 +254,17 @@ EMAIL_HOST_USER = os.getenv('my_email')
 EMAIL_HOST_PASSWORD = os.getenv('email_psw')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_PORT = 587
+
+
+# настройка redis для хранения данных
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        'OPTIONS': {
+            'db': '1',
+        },
+    }
+}
+

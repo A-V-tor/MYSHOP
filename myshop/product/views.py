@@ -1,9 +1,10 @@
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView, TemplateView
-from django.contrib.auth import get_user_model
+
 from orders.models import Cart
 from .models import Product, Sex, Category
+from .other import make_cart_for_anonymous
 
 
 class MaleView(TemplateView):
@@ -197,9 +198,14 @@ class ProductDetailView(DetailView):
             if int(value_size) > 0:
                 product = self.get_object()
                 user = request.user
-                Cart.objects.create(
-                    user_id=user, product_id=product, size=size
-                )
+
+                try:
+                    Cart.objects.create(
+                        user_id=user, product_id=product, size=size
+                    )
+                except ValueError:
+                    user = request.META.get('HTTP_USER_AGENT', '')
+                    make_cart_for_anonymous(user, product, size)
                 messages.add_message(
                     request,
                     messages.SUCCESS,
