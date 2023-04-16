@@ -3,7 +3,13 @@ from product.models import Product, Category, Sex
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'country', 'sex', 'is_published')
+    list_display = (
+        'name',
+        'price',
+        'country',
+        'sex',
+        'is_published',
+    )
     list_editable = ('is_published',)
     list_filter = ('name', 'sex', 'is_published')
     prepopulated_fields = {'slug': ('name',)}

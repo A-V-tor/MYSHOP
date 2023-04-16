@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'product',
     'users',
     'orders',
+    'communication',
 ]
 
 MIDDLEWARE = [
@@ -267,4 +268,3 @@ CACHES = {
         },
     }
 }
-
