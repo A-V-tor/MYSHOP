@@ -36,6 +36,7 @@ urlpatterns = [
         {'next_page': settings.LOGOUT_REDIRECT_URL},
         name='logout',
     ),
+    path('captcha/', include('captcha.urls')),
 ]
 
 # маршрут загрузки графики

@@ -4,6 +4,11 @@
 <h3>Обратная связь</h3>
 <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <p>не верная капча</p>
+            </div>
+        {% endif %}
     {% for i in form %}
         <p>
             <label class="col-md-6 orm-group mt-4 mb-0 card-body" for="{{i.id_for_label}}">{{i.label}}: </label>{{i}}

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'celery',
     'social_django',
+    'captcha',
     # мои приложения
     'product',
     'users',
@@ -268,3 +269,8 @@ CACHES = {
         },
     }
 }
+
+# конфигурация капчи
+
+CAPTCHA_LENGTH = 5
+CAPTCHA_FONT_SIZE = 28
