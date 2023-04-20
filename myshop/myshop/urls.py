@@ -37,6 +37,7 @@ urlpatterns = [
         name='logout',
     ),
     path('captcha/', include('captcha.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 # маршрут загрузки графики

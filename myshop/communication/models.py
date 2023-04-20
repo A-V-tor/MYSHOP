@@ -54,7 +54,7 @@ class Feedback(models.Model):
 
     class Meta:
         verbose_name = 'тело записи'
-        verbose_name_plural = 'Тела записи'
+        verbose_name_plural = 'Записи'
 
 
 class ImageFeedback(models.Model):
@@ -78,4 +78,4 @@ class ImageFeedback(models.Model):
 
     class Meta:
         verbose_name = 'запись'
-        verbose_name_plural = 'Записи'
+        verbose_name_plural = 'Изображения'
