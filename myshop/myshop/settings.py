@@ -279,8 +279,8 @@ CAPTCHA_FONT_SIZE = 28
 
 # конфигурация ckeditor
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_BASEPATH = "/static_nginx/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {

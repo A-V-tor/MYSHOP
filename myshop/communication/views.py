@@ -1,7 +1,7 @@
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from .forms import FeedbackForm
-from .models import ImageFeedback
+from .models import ImageFeedback, Info
 from django.views.generic import CreateView
 
 
@@ -28,3 +28,18 @@ class FeedbackView(CreateView):
         )
 
         return redirect('feedback')
+
+
+def info_view(request):
+    data = Info.objects.first()
+    title = 'Информационная страничка'
+    description = 'Нет никаких записей в данный момент.'
+
+    if data:
+        title = data.title
+        description = data.description
+    return render(
+        request,
+        'communication/info.html',
+        context={'title': title, 'description': description},
+    )

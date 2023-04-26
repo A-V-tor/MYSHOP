@@ -12,6 +12,7 @@
   <link type="text/css" href="{% static 'orders/css/styles.css'%}" rel="stylesheet"/>
   <link type="text/css" href="{% static 'product/css/styles.css'%}" rel="stylesheet"/>
   <link type="text/css" href="{% static 'myshop/css/styles.css'%}" rel="stylesheet"/>
+  <link type="text/css" href="{% static 'communication/css/styles.css'%}" rel="stylesheet"/>
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
            crossorigin="anonymous"></script>
@@ -53,6 +54,7 @@
             <li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
             <li><a class="dropdown-item" href="{% url 'cart' %}">Корзина</a></li>
             <li><a class="dropdown-item" href="{% url 'feedback' %}">Обратная связь</a></li>
+            <li><a class="dropdown-item" href="{% url 'info' %}">Инфо панель</a></li>
           </ul>
         </li>
       </ul>
